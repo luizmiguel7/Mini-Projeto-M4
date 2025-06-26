@@ -26,7 +26,7 @@ const listOnePet = async (req, res) => {
 
 const petsAvailable = async (req, res) => {
     try {
-        const pets = await Pets.findAll({ where: { status: 'disponível' } });
+        const pets = await Pets.findAll({ where: { status: 'Disponível' } });
         res.json(pets);
     } catch (error) {
         res.status(500).json({ error: 'Erro ao listar pets disponíveis' });
