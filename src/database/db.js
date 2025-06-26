@@ -1,18 +1,23 @@
 import { Sequelize } from "sequelize";
-import 'dotenv/config'
+import 'dotenv/config';
 
-const database = new Sequelize(process.env.DATABASE_URL , {
+const database = new Sequelize(process.env.DATABASE_URL, {
   dialect: "postgres",
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false
+    }
+  }
 });
 
 const tryConnectSequelize = async () => {
-
   try {
     await database.authenticate();
     await database.sync({ logging: false });
-    return console.log("Conexão bem-sucedida");
+    console.log("Conexão bem-sucedida");
   } catch (error) {
-    return console.error("Erro de conexão: ", error);
+    console.error("Erro de conexão: ", error);
   }
 };
 
